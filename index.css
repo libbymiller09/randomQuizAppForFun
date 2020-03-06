@@ -102,6 +102,21 @@ h3 {
   transform: none;
 }
 
+/* Heads up display */
+#hud {
+  display: flex;
+  justify-content: space-between;
+}
+
+.hud-prefix {
+  text-align: center;
+  font-size: 2rem;
+}
+
+.hud-main-text {
+  text-align: center;
+}
+
 /* Game Page */
 .choice-container {
   display: flex;
