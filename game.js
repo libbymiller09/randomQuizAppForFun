@@ -1,10 +1,10 @@
-const question = document.getElementById("question");
-const choices = Array.from(document.getElementsByClassName("choice-text"));
-const progressText = document.getElementById("progressText");
-const scoreText = document.getElementById("score");
-const progressBarFull = document.getElementById("progressBarFull");
-const loader = document.getElementById("loader");
-const game = document.getElementById("game");
+const question = document.getElementById('question');
+const choices = Array.from(document.getElementsByClassName('choice-text'));
+const progressText = document.getElementById('progressText');
+const scoreText = document.getElementById('score');
+const progressBarFull = document.getElementById('progressBarFull');
+const loader = document.getElementById('loader');
+const game = document.getElementById('game');
 
 let currentQuestion = {};
 let acceptingAnswers = true;
@@ -14,7 +14,7 @@ let availableQuestions = [];
 
 let questions = [];
 
-fetch("https://opentdb.com/api.php?amount=10&category=12&difficulty=easy&type=multiple")
+fetch('https://opentdb.com/api.php?amount=10&category=12&difficulty=easy&type=multiple')
   .then(res => {
     return res.json();
   })
@@ -29,7 +29,7 @@ fetch("https://opentdb.com/api.php?amount=10&category=12&difficulty=easy&type=mu
       answerChoices.splice(formattedQuestion.answer - 1, 0, loadedQuestion.correct_answer);
 
       answerChoices.forEach((choice, index) => {
-        formattedQuestion["choice" + (index + 1)] = choice;
+        formattedQuestion['choice' + (index + 1)] = choice;
       })
       return formattedQuestion;
     });
@@ -40,22 +40,22 @@ fetch("https://opentdb.com/api.php?amount=10&category=12&difficulty=easy&type=mu
   });
 
 const correctBonus = 10;
-const maxQuestions = 3;
+const maxQuestions = 10;
 
 startGame = () => {
   questionCounter = 0;
   score = 0;
   availableQuestions = [...questions];
   getNewQuestion();
-  game.classList.remove("hidden");
-  loader.classList.add("hidden");
+  game.classList.remove('hidden');
+  loader.classList.add('hidden');
 };
 
 getNewQuestion = () => {
   if (availableQuestions.length === 0 || questionCounter >= maxQuestions) {
-    localStorage.setItem("mostRecentScore", score);
+    localStorage.setItem('mostRecentScore', score);
 
-    return window.location.assign("/end.html");
+    return window.location.assign('/end.html');
   }
   questionCounter++;
   progressText.innerText = `Question ${questionCounter}/${maxQuestions}`;
@@ -67,8 +67,8 @@ getNewQuestion = () => {
   question.innerText = currentQuestion.question;
 
   choices.forEach(choice => {
-    const number = choice.dataset["number"];
-    choice.innerText = currentQuestion["choice" + number];
+    const number = choice.dataset['number'];
+    choice.innerText = currentQuestion['choice' + number];
   });
 
   availableQuestions.splice(questionIndex, 1);
@@ -77,14 +77,14 @@ getNewQuestion = () => {
 };
 
 choices.forEach(choice => {
-  choice.addEventListener("click", e => {
+  choice.addEventListener('click', e => {
     if (!acceptingAnswers) return;
 
     acceptingAnswers = false;
     const selectedChoice = e.target;
-    const selectedAnswer = selectedChoice.dataset["number"];
+    const selectedAnswer = selectedChoice.dataset['number'];
 
-    const classToApply = selectedAnswer == currentQuestion.answer ? "correct" : "incorrect";
+    const classToApply = selectedAnswer == currentQuestion.answer ? 'correct' : 'incorrect';
 
     if (classToApply === 'correct') {
       incrementScore(correctBonus);
